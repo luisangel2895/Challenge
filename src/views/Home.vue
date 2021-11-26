@@ -1,18 +1,24 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+<template lang="pug">
+  v-container
+    product(v-for="(product, key) in getProducts" :key="key" :product="product")
 </template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import { mapActions, mapGetters } from "vuex";
+import Product from "../components/Product.vue";
 
 export default {
   name: "Home",
+  computed: {
+    ...mapGetters(["getProducts"]),
+  },
+  methods: {
+    ...mapActions(["getProductsAsync"]),
+  },
   components: {
-    HelloWorld,
+    Product,
+  },
+  mounted() {
+    this.getProductsAsync();
   },
 };
 </script>
