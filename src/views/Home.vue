@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-container
+  v-container(style="width:80%;")
     product(v-for="(product, key) in getProducts" :key="key" :product="product")
 </template>
 <script>

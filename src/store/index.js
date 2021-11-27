@@ -14,20 +14,24 @@ export default new Vuex.Store({
     getProductSelected: (state) => state.productSelected,
   },
   mutations: {
-    GET_PRODUCTS(state, payload) {
+    SET_PRODUCTS(state, payload) {
       state.products = payload;
     },
-    GET_PRODUCT_SELECTED(state, payload) {
-      let productSelected = state.products.find((product) => {
-        return product.ProductID === Number(payload);
-      });
-      state.productSelected = productSelected;
+    SET_PRODUCT_SELECTED(state, payload) {
+      state.productSelected = payload;
     },
   },
   actions: {
     async getProductsAsync({ commit }) {
       const products = await axios.get("productList.json");
-      commit("GET_PRODUCTS", products.data);
+      commit("SET_PRODUCTS", products.data);
+    },
+    async getPorductAsync({ commit }, payload) {
+      const products = await axios.get("../productList.json");
+      const productSelected = products.data.find((product) => {
+        return product.ProductID === Number(payload);
+      });
+      commit("SET_PRODUCT_SELECTED", productSelected);
     },
   },
   modules: {},
